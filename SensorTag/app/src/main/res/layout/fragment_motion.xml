@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jordanleex13.sensortag.profiles.MotionFragment">
+
+
+    <!-- TODO: CHANGE LAYOUT SO NOTHING MOVES WHEN NUMBERS CHANGE -->
+
+
+
+    <TextView
+        android:id="@+id/fragment_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/accel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/fragment_position"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/accel_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accelerometer: " />
+
+        <TextView
+            android:id="@+id/accel_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gyro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/accel"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/gyro_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gyroscope: " />
+
+
+        <TextView
+            android:id="@+id/gyro_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/gyro"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/mag_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Magnetometer: " />
+
+        <TextView
+            android:id="@+id/mag_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/wakeOnShakeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wake On Shake"
+        android:layout_above="@+id/periodLength"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:id="@+id/periodLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/periodBar"/>
+
+    <SeekBar
+        android:id="@+id/periodBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sensorSwitch"
+        android:layout_margin="10dp"/>
+
+    <Switch
+        android:id="@+id/sensorSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sensor State"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
+
+

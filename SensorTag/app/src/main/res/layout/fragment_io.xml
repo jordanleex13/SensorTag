@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jordanleex13.sensortag.profiles.IOFragment">
+
+
+    <TextView
+        android:id="@+id/fragment_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:id="@+id/toggleRedLight"
+        android:layout_width="wrap_content"
+        android:switchMinWidth="50dp"
+        android:layout_height="wrap_content"
+        android:text="Red Light"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="4dip"
+        android:layout_marginTop="4dip"
+        android:background="@color/colorAccent"/>
+
+    <Switch
+        android:id="@+id/toggleGreenLight"
+        android:layout_width="wrap_content"
+        android:switchMinWidth="50dp"
+        android:layout_height="wrap_content"
+        android:text="Green Light"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="4dip"
+        android:layout_marginTop="4dip"
+        android:background="@color/colorAccent"/>
+    <Switch
+        android:id="@+id/toggleBuzzer"
+        android:layout_width="wrap_content"
+        android:switchMinWidth="50dp"
+        android:layout_height="wrap_content"
+        android:text="Buzzer"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+</LinearLayout>
