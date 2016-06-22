@@ -3,7 +3,6 @@ package com.jordanleex13.sensortag.ui;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.jordanleex13.sensortag.profiles.BarometerFragment;
 import com.jordanleex13.sensortag.profiles.HumidityFragment;
@@ -21,11 +20,11 @@ import com.jordanleex13.sensortag.profiles.TemperatureFragment;
  */
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final String TAG = SectionsPagerAdapter.class.getSimpleName();
+    //private static final String TAG = SectionsPagerAdapter.class.getSimpleName();
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
-        Log.d(TAG, "Constructor for adapter");
+        //Log.d(TAG, "Constructor for adapter");
     }
 
     /**
@@ -36,7 +35,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        Log.d(TAG, "Get item: " + position);
+        //Log.d(TAG, "Get item: " + position);
 
         switch (position) {
 

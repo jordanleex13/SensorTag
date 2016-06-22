@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ import java.util.List;
  */
 public class DeviceActivity extends AppCompatActivity {
 
-    private static final String TAG = DeviceActivity.class.getSimpleName();
+    //private static final String TAG = DeviceActivity.class.getSimpleName();
 
     /**
      * BLE related
@@ -81,19 +80,19 @@ public class DeviceActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
 
             mBounded = true;
-            Log.i(TAG, "Service Connected");
+            //Log.i(TAG, "Service Connected");
             BleService.LocalBinder temp = (BleService.LocalBinder) service;
             mBleService = temp.getInstance();
 
             if(!mBleService.initialize()) {
-                Log.e(TAG, "Cannot initialize");
+                //Log.e(TAG, "Cannot initialize");
                 finish();
             }
             if (mBleService.connect(mDeviceAddress)) {
                 mConnected = true;
             } else {
                 mConnected = false;
-                Log.e(TAG, "Failed to connect to BLE device");
+                //Log.e(TAG, "Failed to connect to BLE device");
             }
 
         }
@@ -111,7 +110,7 @@ public class DeviceActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName name) {
 
-            Log.i(TAG, "Service Disconnected");
+            //Log.i(TAG, "Service Disconnected");
             mBounded = false;
             mConnected = false;
             mBleService = null;
@@ -137,16 +136,16 @@ public class DeviceActivity extends AppCompatActivity {
 
             } else if (BleService.ACTION_GATT_SERVICES_DISCOVERED.equals(action))
             {
-                Log.i(TAG, "Services discovered");
+                //Log.i(TAG, "Services discovered");
                 setUpGattServices(mBleService.getSupportedGattServices());
 
             } else if (BleService.ACTION_DATA_READ.equals(action))
             {
-                Log.d(TAG, "Data read");
+                //Log.d(TAG, "Data read");
 
             } else if (BleService.ACTION_DATA_WRITE.equals(action))
             {
-                Log.d(TAG, "Data written");
+                //Log.d(TAG, "Data written");
 
             } else if (BleService.ACTION_DATA_NOTIFY.equals(action))
             {
@@ -160,7 +159,7 @@ public class DeviceActivity extends AppCompatActivity {
 
             } else
             {
-                Log.e(TAG, "Unknown received");
+                //Log.e(TAG, "Unknown received");
             }
         }
     };
@@ -176,41 +175,41 @@ public class DeviceActivity extends AppCompatActivity {
         Intent notifyIntent;
 
         if (uuidStr.compareTo(SensorTagGatt.UUID_IRT_DATA.toString()) == 0) {
-            Log.d(TAG, "Notify intent to temperature");
+            //Log.d(TAG, "Notify intent to temperature");
             notifyIntent = new Intent(IntentNames.ACTION_IRT_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_IRT_DATA, value);
             sendBroadcast(notifyIntent);
 
         } else if (uuidStr.compareTo(SensorTagGatt.UUID_OPT_DATA.toString()) == 0) {
-            Log.d(TAG, "Notify intent to optical");
+            //Log.d(TAG, "Notify intent to optical");
             notifyIntent = new Intent(IntentNames.ACTION_OPT_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_OPT_DATA, value);
             sendBroadcast(notifyIntent);
 
         } else if (uuidStr.compareTo(SensorTagGatt.UUID_MOV_DATA.toString()) == 0) {
-            Log.d(TAG, "Notify intent to motion");
+            //Log.d(TAG, "Notify intent to motion");
             notifyIntent = new Intent(IntentNames.ACTION_MOV_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_MOV_DATA, value);
             sendBroadcast(notifyIntent);
         } else if (uuidStr.compareTo(SensorTagGatt.UUID_KEY_DATA.toString()) == 0) {
-            Log.d(TAG, "Notify keys");
+            //Log.d(TAG, "Notify keys");
             notifyIntent = new Intent(IntentNames.ACTION_KEY_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_KEY_DATA, value);
             sendBroadcast(notifyIntent);
 
         } else if (uuidStr.compareTo(SensorTagGatt.UUID_HUM_DATA.toString())== 0) {
-            Log.d(TAG, "Notify intent to humidity");
+            //Log.d(TAG, "Notify intent to humidity");
             notifyIntent = new Intent(IntentNames.ACTION_HUM_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_HUM_DATA, value);
             sendBroadcast(notifyIntent);
         } else if (uuidStr.compareTo(SensorTagGatt.UUID_BAR_DATA.toString()) == 0) {
-            Log.d(TAG, "Notify intent to barometer");
+            //Log.d(TAG, "Notify intent to barometer");
             notifyIntent = new Intent(IntentNames.ACTION_BAR_CHANGE);
             notifyIntent.putExtra(IntentNames.EXTRAS_BAR_DATA, value);
             sendBroadcast(notifyIntent);
 
         } else {
-            Log.e(TAG, "Notified something that isn't set up for");
+            //Log.e(TAG, "Notified something that isn't set up for");
         }
     }
 
@@ -227,7 +226,7 @@ public class DeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Log.d(TAG, "ON CREATE");
+        //Log.d(TAG, "ON CREATE");
 
         /*
          * Gets intent from MainActivity
@@ -264,7 +263,7 @@ public class DeviceActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch(v.getId()) {
                 case R.id.connectButton:
-                    Log.d(TAG, "connect pressed");
+                    //Log.d(TAG, "connect pressed");
                     if (!mConnected) {
                         mBleService.connect(mDeviceAddress);
                         mConnected = true;
@@ -274,7 +273,7 @@ public class DeviceActivity extends AppCompatActivity {
                     break;
 
                 case R.id.disconnectButton:
-                    Log.d(TAG, "disconnect pressed");
+                    //Log.d(TAG, "disconnect pressed");
                     if (mConnected) {
                         mBleService.disconnect(mDeviceAddress);
                         mConnected = false;
@@ -284,7 +283,7 @@ public class DeviceActivity extends AppCompatActivity {
                     break;
 
                 default:
-                    Log.e(TAG, "Error in clicking");
+                    //Log.e(TAG, "Error in clicking");
                     break;
             }
         }
@@ -296,8 +295,8 @@ public class DeviceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "ON RESUME");
-        Log.i(TAG, "Registering receiver");
+        //Log.d(TAG, "ON RESUME");
+        //Log.i(TAG, "Registering receiver");
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
     }
 
@@ -318,7 +317,7 @@ public class DeviceActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "ON PAUSE");
+        //Log.d(TAG, "ON PAUSE");
         unregisterReceiver(mGattUpdateReceiver);
     }
 
@@ -328,13 +327,13 @@ public class DeviceActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "ON DESTROY");
+        //Log.e(TAG, "ON DESTROY");
         if (mConnected) {
             mBleService.disconnect(mDeviceAddress);
         }
         mBleService.close();
         if (mBounded) {
-            Log.d(TAG, "Unbinding service");
+            //Log.d(TAG, "Unbinding service");
             unbindService(mServiceConnection);
             mBounded = false;
         }
@@ -363,8 +362,8 @@ public class DeviceActivity extends AppCompatActivity {
                 }
             }
         }
-        Log.d(TAG, "Total services " + gattServices.size());
-        Log.d(TAG,"Total characteristics " + charList.size());
+        //Log.d(TAG, "Total services " + gattServices.size());
+        //Log.d(TAG,"Total characteristics " + charList.size());
 
 
         // Sets up UI progress dialog to display progress of background thread
@@ -407,7 +406,7 @@ public class DeviceActivity extends AppCompatActivity {
 //                                    mBtLeService.refreshDeviceCache(mBtGatt);
 //                                    //Try again
 //                                    discoverServices();
-                                    Log.e(TAG, "FIX THIS");
+                                    //Log.e(TAG, "FIX THIS");
                                 }
                             });
                             alertDialogBuilder.setNegativeButton("Disconnect",new DialogInterface.OnClickListener() {
@@ -438,7 +437,7 @@ public class DeviceActivity extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT > 18) {
                     maxNotifications = 7;
-                    Log.d(TAG, "Build over 18; 7 notifications allowed");
+                    //Log.d(TAG, "Build over 18; 7 notifications allowed");
 
                 }
                 else {
@@ -446,7 +445,7 @@ public class DeviceActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d(TAG, "Build under 18, only 4 notifications");
+                            //Log.d(TAG, "Build under 18, only 4 notifications");
                             Toast.makeText(DeviceActivity.this, "Android version 4.3 detected, max 4 notifications enabled", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -457,7 +456,7 @@ public class DeviceActivity extends AppCompatActivity {
                     BluetoothGattService service = gattServices.get(ii);
                     List<BluetoothGattCharacteristic> chars = service.getCharacteristics();
                     if (chars.size() == 0) {
-                        Log.e(TAG, "No characteristics found for this service !!!");
+                        //Log.e(TAG, "No characteristics found for this service !!!");
                         continue;
                     }
                     servicesDiscovered++;
@@ -474,7 +473,7 @@ public class DeviceActivity extends AppCompatActivity {
 
 
                     String serviceUUID = service.getUuid().toString();
-                    Log.d("DeviceActivity", "Configuring service with uuid : " + serviceUUID);
+                    //Log.d("DeviceActivity", "Configuring service with uuid : " + serviceUUID);
 
 
                     /*
@@ -494,7 +493,7 @@ public class DeviceActivity extends AppCompatActivity {
                      */
                     if (serviceUUID.compareTo(SensorTagGatt.UUID_IRT_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "IR TEMP FOUND (both ambient and infrared");
+                        //Log.d(TAG, "IR TEMP FOUND (both ambient and infrared");
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_IRT_DATA);
                         safeSleep();
                         mBleService.enableService(service, SensorTagGatt.UUID_IRT_CONF);
@@ -502,12 +501,12 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_ACC_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "ACCEL FOUND");
+                        //Log.d(TAG, "ACCEL FOUND");
                         //see movement
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_HUM_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "HUMIDITY FOUND");
+                        //Log.d(TAG, "HUMIDITY FOUND");
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_HUM_DATA);
                         safeSleep();
                         mBleService.enableService(service, SensorTagGatt.UUID_HUM_CONF);
@@ -515,12 +514,12 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_MAG_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "MAGNETOMETER FOUND");
+                        //Log.d(TAG, "MAGNETOMETER FOUND");
                         //see movement
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_OPT_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "OPTICAL SENSOR  (LUXOMETER) FOUND");
+                        //Log.d(TAG, "OPTICAL SENSOR  (LUXOMETER) FOUND");
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_OPT_DATA);
                         safeSleep();
                         mBleService.enableService(service, SensorTagGatt.UUID_OPT_CONF);
@@ -528,7 +527,7 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_BAR_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "BAROMETER FOUND");
+                        //Log.d(TAG, "BAROMETER FOUND");
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_BAR_DATA);
                         safeSleep();
                         mBleService.enableService(service, SensorTagGatt.UUID_BAR_CONF);
@@ -536,12 +535,12 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_GYR_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "GYROSCOPE FOUND");
+                        //Log.d(TAG, "GYROSCOPE FOUND");
                         //see movement
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_MOV_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "MOTION SENSOR FOUND");
+                        //Log.d(TAG, "MOTION SENSOR FOUND");
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_MOV_DATA);
                         safeSleep();
                         mBleService.enableMotionService(service, SensorTagGatt.UUID_MOV_CONF, true);
@@ -549,7 +548,7 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_KEY_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "KEYS FOUND");
+                        //Log.d(TAG, "KEYS FOUND");
 
                         //Notify only service. No read or write
                         mBleService.enableNotifications(service, SensorTagGatt.UUID_KEY_DATA);
@@ -557,28 +556,28 @@ public class DeviceActivity extends AppCompatActivity {
 
                     } else if (serviceUUID.compareTo("0000ffb0-0000-1000-8000-00805f9b34fb") == 0)
                     {
-                        Log.d(TAG, "Light service UUID FOUND");
+                        //Log.d(TAG, "Light service UUID FOUND");
 
                     } else if (serviceUUID.compareTo("f000ad00-0451-4000-b000-000000000000")==0)
                     {
-                        Log.d(TAG, "Display service found");
+                        //Log.d(TAG, "Display service found");
 
                     } else if (serviceUUID.compareTo("f000ffc0-0451-4000-b000-000000000000") == 0)
                     {
-                        Log.d(TAG, "TIOAD service found");
+                        //Log.d(TAG, "TIOAD service found");
 
                     } else if (serviceUUID.compareTo(SensorTagGatt.UUID_TST_SERV.toString()) == 0)
                     {
-                        Log.d(TAG, "IO SERVICE FOUND");
+                        //Log.d(TAG, "IO SERVICE FOUND");
                         mBleService.enableService(service, SensorTagGatt.UUID_TST_CONF);
                         safeSleep();
 
                     } else if (serviceUUID.compareTo("f000ccc0-0451-4000-b000-000000000000") == 0)
                     {
-                        Log.d(TAG, "OAD service found");
+                        //Log.d(TAG, "OAD service found");
 
                     } else {
-                        Log.e(TAG, "Unknown service");
+                        //Log.e(TAG, "Unknown service");
                     }
 
                 }
@@ -639,9 +638,9 @@ public class DeviceActivity extends AppCompatActivity {
      */
     private void safeSleep() {
         try {
-            Log.d(TAG, "start sleep");
+            //Log.d(TAG, "start sleep");
             Thread.sleep(200);
-            Log.d(TAG, "end sleep");
+            //Log.d(TAG, "end sleep");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

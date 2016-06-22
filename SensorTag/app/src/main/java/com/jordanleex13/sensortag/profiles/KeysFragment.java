@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import com.jordanleex13.sensortag.SensorTag.SensorTagGatt;
  */
 public class KeysFragment extends Fragment {
 
-    private static final String TAG = KeysFragment.class.getSimpleName();
+    //private static final String TAG = KeysFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.KeysFragment.FRAGMENT_POSITION";
 
     /**
@@ -110,7 +109,7 @@ public class KeysFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(keysUpdateReceiver, makeKeysUpdateIntentFilter());
-        Log.i(TAG, "Registering KEYS receiver");
+        //Log.i(TAG, "Registering KEYS receiver");
     }
 
     /**
@@ -120,7 +119,7 @@ public class KeysFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(keysUpdateReceiver);
-        Log.i(TAG, "Unregistering KEYS receiver");
+        //Log.i(TAG, "Unregistering KEYS receiver");
     }
 
 

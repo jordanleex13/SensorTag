@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import com.jordanleex13.sensortag.models.Point3D;
  */
 public class TemperatureFragment extends Fragment {
 
-    private static final String TAG = TemperatureFragment.class.getSimpleName();
+    //private static final String TAG = TemperatureFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.TemperatureFragment.FRAGMENT_POSITION";
 
     /**
@@ -134,19 +133,19 @@ public class TemperatureFragment extends Fragment {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Start");
+            //Log.d(TAG, "Period Start");
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Stop");
+            //Log.d(TAG, "Period Stop");
             int period = periodMinVal + (seekBar.getProgress() * 10);
 
             if (period > 2450) period = 2450;
             if (period < 100) period = 100;
             byte p = (byte)((period / 10) + 10);
 
-            Log.d(TAG, "Period characteristic set to: " + period);
+            //Log.d(TAG, "Period characteristic set to: " + period);
             mBleService.changePeriod(mBleService.getCharacteristicFromUUID(SensorTagGatt.UUID_IRT_PERI.toString()), p);
 
         }
@@ -176,7 +175,7 @@ public class TemperatureFragment extends Fragment {
                     periodBar.setEnabled(true);
                 } else {
                     mFirstTime = false;
-                    Log.d(TAG, "FIRST TIME");
+                    //Log.d(TAG, "FIRST TIME");
                 }
 
             }
@@ -190,7 +189,7 @@ public class TemperatureFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(temperatureUpdateReceiver, makeTemperatureUpdateIntentFilter());
-        Log.i(TAG, "REGISTERING temperature RECEIVER");
+        //Log.i(TAG, "REGISTERING temperature RECEIVER");
     }
 
     /**
@@ -200,7 +199,7 @@ public class TemperatureFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(temperatureUpdateReceiver);
-        Log.i(TAG, "UNREGISTERING temperature RECEIVER");
+        //Log.i(TAG, "UNREGISTERING temperature RECEIVER");
     }
 
     /**

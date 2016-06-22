@@ -11,7 +11,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,10 +37,7 @@ import com.jordanleex13.sensortag.SensorTag.SensorTagUtil;
  */
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * Debug Tag for use logging debug output to LogCat
-     */
-    private static final String TAG = MainActivity.class.getSimpleName();
+    //private static final String TAG = MainActivity.class.getSimpleName();
 
 
     /**
@@ -73,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "On Create");
+        //Log.d(TAG, "On Create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
-            Log.e(TAG, "Device does not support Bluetooth");
+            //Log.e(TAG, "Device does not support Bluetooth");
 
             errorAlertDialog("This Android device does not have Bluetooth or there is an error in the " +
                     "bluetooth setup. Application cannot start, will exit.");
@@ -135,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.startScanButton:
-                    Log.d(TAG, "Pressed start button");
+                    //Log.d(TAG, "Pressed start button");
 
                     // Used for Low Energy Bluetooth
                     scanLeDevice(true);
                     break;
 
                 case R.id.stopScanButton:
-                    Log.d(TAG, "Pressed stop button");
+                    //Log.d(TAG, "Pressed stop button");
                     scanLeDevice(false);
                     break;
 
@@ -165,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
             if (device == null) {
-                Log.e(TAG, "Error. Device appears in list but is not in range");
+                //Log.e(TAG, "Error. Device appears in list but is not in range");
                 Toast.makeText(MainActivity.this, "Device not in range. Refresh list", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -175,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
              */
             if (SensorTagUtil.isSensorTag2(device)) {
 
-                Log.d(TAG, device.getName() + "\n" + device.getAddress());
+                //Log.d(TAG, device.getName() + "\n" + device.getAddress());
 
                 final Intent intent = new Intent(MainActivity.this, DeviceActivity.class);
                 intent.putExtra(IntentNames.EXTRAS_DEVICE, device);
@@ -188,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
 
             } else {
-                Log.d(TAG, "NOT SensorTag2");
                 Toast.makeText(MainActivity.this, "Not a SensorTag device", Toast.LENGTH_SHORT).show();
             }
         }
@@ -233,12 +228,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void scanLeDevice(final boolean enable) {
         if (enable) {
-            Log.d(TAG, "Starting scan");
+            //Log.d(TAG, "Starting scan");
             mScanning = true;
             scanProgress.setVisibility(View.VISIBLE);
             mBluetoothAdapter.startLeScan(mLeScanCallback);
         } else {
-            Log.d(TAG, "Stopping scan and refreshing list");
+            //Log.d(TAG, "Stopping scan and refreshing list");
             mScanning = false;
             scanProgress.setVisibility(View.INVISIBLE);
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -265,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onDestroy() {
-        Log.i(TAG, "On Destroy");
+        //Log.i(TAG, "On Destroy");
         mBluetoothManager = null;
         mBluetoothAdapter = null;
         super.onDestroy();
@@ -281,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Log.d(TAG, "Selected settings");
+                //Log.d(TAG, "Selected settings");
                 break;
             default:
                 break;
@@ -300,9 +295,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK)
-                Log.d(TAG, "Bluetooth enabled");
+                return;
+                //Log.d(TAG, "Bluetooth enabled");
             else {
-                Log.e(TAG, "Bluetooth not enabled");
+                //Log.e(TAG, "Bluetooth not enabled");
                 finish();
             }
         }

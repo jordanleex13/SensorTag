@@ -2,7 +2,6 @@ package com.jordanleex13.sensortag.ui;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class LeDeviceListAdapter extends BaseAdapter {
         if (mLeDevices.contains(device)) {
             rssiValues.add(mLeDevices.indexOf(device), RSSI);
         } else {
-            Log.w("updateRssiValue", "Didn't add RSSI");
+            //Log.w("updateRssiValue", "Didn't add RSSI");
         }
     }
 

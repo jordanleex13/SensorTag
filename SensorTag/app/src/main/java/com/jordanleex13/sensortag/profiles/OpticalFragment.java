@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import com.jordanleex13.sensortag.models.Point3D;
  */
 public class OpticalFragment extends Fragment {
 
-    private static final String TAG = OpticalFragment.class.getSimpleName();
+    //private static final String TAG = OpticalFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.OpticalFragment.FRAGMENT_POSITION";
 
     /**
@@ -135,19 +134,19 @@ public class OpticalFragment extends Fragment {
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Start");
+            //Log.d(TAG, "Period Start");
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Stop");
+            //Log.d(TAG, "Period Stop");
             int period = periodMinVal + (seekBar.getProgress() * 10);
 
             if (period > 2450) period = 2450;
             if (period < 100) period = 100;
             byte p = (byte)((period / 10) + 10);
 
-            Log.d(TAG, "Period characteristic set to: " + period);
+            //Log.d(TAG, "Period characteristic set to: " + period);
             mBleService.changePeriod(mBleService.getCharacteristicFromUUID(SensorTagGatt.UUID_OPT_PERI.toString()), p);
         }
     };
@@ -173,7 +172,7 @@ public class OpticalFragment extends Fragment {
                     periodBar.setEnabled(true);
                 } else {
                     mFirstTime = false;
-                    Log.d(TAG, "FIRST TIME");
+                    //Log.d(TAG, "FIRST TIME");
                 }
 
             }
@@ -188,7 +187,7 @@ public class OpticalFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(opticalUpdateReceiver, makeOpticalUpdateIntentFilter());
-        Log.i(TAG, "REGISTERING optical RECEIVER");
+        //Log.i(TAG, "REGISTERING optical RECEIVER");
     }
 
     /**
@@ -198,7 +197,7 @@ public class OpticalFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(opticalUpdateReceiver);
-        Log.i(TAG, "UNREGISTERING optical RECEIVER");
+        //Log.i(TAG, "UNREGISTERING optical RECEIVER");
     }
 
     /**

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import com.jordanleex13.sensortag.models.Point3D;
  */
 public class MotionFragment extends Fragment {
 
-    private static final String TAG = MotionFragment.class.getSimpleName();
+    //private static final String TAG = MotionFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.MotionFragment.FRAGMENT_POSITION";
 
     /**
@@ -154,14 +153,14 @@ public class MotionFragment extends Fragment {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Stop");
+            //Log.d(TAG, "Period Stop");
             int period = periodMinVal + (seekBar.getProgress() * 10);
 
             if (period > 2450) period = 2450;
             if (period < 100) period = 100;
             byte p = (byte)((period / 10) + 10);
 
-            Log.d(TAG, "Period characteristic set to: " + period);
+            //Log.d(TAG, "Period characteristic set to: " + period);
             mBleService.changePeriod(mBleService.getCharacteristicFromUUID(SensorTagGatt.UUID_MOV_PERI.toString()), p);
         }
     };
@@ -208,7 +207,7 @@ public class MotionFragment extends Fragment {
                             periodBar.setEnabled(true);
                         } else {
                             mFirstTime = false;
-                            Log.d(TAG, "FIRST TIME");
+                            //Log.d(TAG, "FIRST TIME");
                         }
                         break;
 
@@ -231,7 +230,7 @@ public class MotionFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(motionUpdateReceiver, makeMotionUpdateIntentFilter());
-        Log.i(TAG, "Registering MOTION receiver");
+        //Log.i(TAG, "Registering MOTION receiver");
     }
 
     /**
@@ -241,7 +240,7 @@ public class MotionFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(motionUpdateReceiver);
-        Log.i(TAG, "Unregistering MOTION receiver");
+        //Log.i(TAG, "Unregistering MOTION receiver");
     }
 
     /**
@@ -256,7 +255,7 @@ public class MotionFragment extends Fragment {
 
             if (IntentNames.ACTION_MOV_CHANGE.equals(action)) {
 
-                Log.i(TAG, "***************** MOTION sensed *****************");
+                //Log.i(TAG, "***************** MOTION sensed *****************");
                 byte[] value = intent.getByteArrayExtra(IntentNames.EXTRAS_MOV_DATA);
                 Point3D v;
 

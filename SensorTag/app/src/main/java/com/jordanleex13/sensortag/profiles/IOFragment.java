@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.jordanleex13.sensortag.SensorTag.SensorTagGatt;
  */
 public class IOFragment extends Fragment {
 
-    private static final String TAG = IOFragment.class.getSimpleName();
+    //private static final String TAG = IOFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.IOFragment.FRAGMENT_POSITION";
 
     /**
@@ -130,7 +129,7 @@ public class IOFragment extends Fragment {
                 switch(buttonView.getId()) {
 
                     case R.id.toggleRedLight:
-                        Log.i(TAG, "RED LIGHT on");
+                        //Log.i(TAG, "RED LIGHT on");
                         if (greenOn && buzzerOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{7});
                         } else if (greenOn) {
@@ -144,7 +143,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     case R.id.toggleGreenLight:
-                        Log.i(TAG, "Green light on");
+                        //Log.i(TAG, "Green light on");
                         if (redOn && buzzerOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{7});
                         } else if (redOn) {
@@ -158,7 +157,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     case R.id.toggleBuzzer:
-                        Log.i(TAG, "Buzzer on");
+                        //Log.i(TAG, "Buzzer on");
                         if (greenOn && redOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{7});
                         } else if (redOn) {
@@ -172,7 +171,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     default:
-                        Log.e(TAG, "Should not be default");
+                        //Log.e(TAG, "Should not be default");
                         break;
                 }
             } else {
@@ -182,7 +181,7 @@ public class IOFragment extends Fragment {
                 switch(buttonView.getId()) {
 
                     case R.id.toggleRedLight:
-                        Log.i(TAG, "RED LIGHT off");
+                        //Log.i(TAG, "RED LIGHT off");
                         if (greenOn && buzzerOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{6});
                         } else if (greenOn) {
@@ -196,7 +195,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     case R.id.toggleGreenLight:
-                        Log.i(TAG, "Green light off");
+                        //Log.i(TAG, "Green light off");
                         if (redOn && buzzerOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{5});
                         } else if (redOn) {
@@ -210,7 +209,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     case R.id.toggleBuzzer:
-                        Log.i(TAG, "Buzzer off");
+                        //Log.i(TAG, "Buzzer off");
                         if (greenOn && redOn) {
                             mBleService.changeIO(mDataCharacteristic, new byte[]{3});
                         } else if (redOn) {
@@ -224,7 +223,7 @@ public class IOFragment extends Fragment {
                         break;
 
                     default:
-                        Log.e(TAG, "Should not be default");
+                        //Log.e(TAG, "Should not be default");
                         break;
                 }
 

@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import com.jordanleex13.sensortag.models.Point3D;
  */
 public class BarometerFragment extends Fragment {
 
-    private static final String TAG = BarometerFragment.class.getSimpleName();
+    //private static final String TAG = BarometerFragment.class.getSimpleName();
     private static final String FRAGMENT_POSITION = "com.jordanleex13.sensortag.BarometerFragment.FRAGMENT_POSITION";
 
     /**
@@ -135,14 +134,14 @@ public class BarometerFragment extends Fragment {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Log.d(TAG, "Period Stop");
+            //Log.d(TAG, "Period Stop");
             int period = periodMinVal + (seekBar.getProgress() * 10);
 
             if (period > 2450) period = 2450;
             if (period < 100) period = 100;
             byte p = (byte)((period / 10) + 10);
 
-            Log.d(TAG, "Period characteristic set to: " + period);
+            //Log.d(TAG, "Period characteristic set to: " + period);
             mBleService.changePeriod(mBleService.getCharacteristicFromUUID(SensorTagGatt.UUID_BAR_PERI.toString()), p);
         }
     };
@@ -168,7 +167,7 @@ public class BarometerFragment extends Fragment {
                     periodBar.setEnabled(true);
                 } else {
                     mFirstTime = false;
-                    Log.d(TAG, "FIRST TIME. Service already enabled");
+                    //Log.d(TAG, "FIRST TIME. Service already enabled");
                 }
             }
         }
@@ -181,7 +180,7 @@ public class BarometerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(barometerUpdateReceiver, makeBarometerUpdateIntentFilter());
-        Log.i(TAG, "Registering BAROMETER receiver");
+        //Log.i(TAG, "Registering BAROMETER receiver");
     }
 
     /**
@@ -191,7 +190,7 @@ public class BarometerFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(barometerUpdateReceiver);
-        Log.i(TAG, "Unregistering BAROMETER receiver");
+        //Log.i(TAG, "Unregistering BAROMETER receiver");
     }
 
     /**
