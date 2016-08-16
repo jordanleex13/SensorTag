@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
@@ -434,22 +433,6 @@ public class DeviceActivity extends AppCompatActivity {
 
                     }
                 });
-
-                if (Build.VERSION.SDK_INT > 18) {
-                    maxNotifications = 7;
-                    //Log.d(TAG, "Build over 18; 7 notifications allowed");
-
-                }
-                else {
-                    maxNotifications = 4;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Log.d(TAG, "Build under 18, only 4 notifications");
-                            Toast.makeText(DeviceActivity.this, "Android version 4.3 detected, max 4 notifications enabled", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
 
 
                 for (int ii = 0; ii < gattServices.size(); ii++) {
